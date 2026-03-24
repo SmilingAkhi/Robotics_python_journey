@@ -7,12 +7,14 @@ from spatialmath.base import *
 from spatialmath.base import sym
 from spatialgeometry import *
 from roboticstoolbox import *
+import numpy as np
 from machinevisiontoolbox import *
 import scipy as scc
 from sympy import Symbol, Matrix, simplify
 import machinevisiontoolbox.base as mvb
 
 
+'''
 R = rot2(0.3) #creating a 2D matrix with 0.3 rad rotation
 trplot2(R) #plots the rotation matrix
 #plt.show() #shows the matrix visually using a graph
@@ -33,7 +35,7 @@ determinant_simplified =  R.det().simplify() #determined the determinant to get 
 # print(determinant_simplified)
 
 
-#relationship between rotation matrix and exponenetial of skew symmetric matrix 
+# #relationship between rotation matrix and exponenetial of skew symmetric matrix 
 
 RM = rot2(0.3) # produces a 2 x 2 matrix  
 L = scc.linalg.logm(RM) #using scipy to evaluate log of a rotation matrix whiich produces a skew symetric matrix
@@ -53,7 +55,7 @@ print(htm)
 
 TA = transl2(1, 2) @ trot2(30, "deg") 
 print(TA)
-# plotvol2([0,5])
+plotvol2([0,5])
 trplot2(TA, frame="A" , color="b")
 
 
@@ -69,19 +71,34 @@ trplot2(TB, frame="B", color="r")
 TBA =  TA @ TB
 trplot2(TBA, frame="AB", color="g")
 
+#a point 3,2 relative to the world frame 
 P = np.array([3,2])
 plot_point(P, "ko", text="P")
 
+'''
 
 #rotating a coordinate frame 
 plotvol2([-5, 4,-1, 5])
+T0 = transl2(0,0)
+trplot2(T0, frame="0", color="k")
+TX = transl2(2,3)
+trplot2(TX, frame="X", color="b")
 
+# SE(2) matrix rep2 rad
+TR = trot2(2)
+print(TR)
+# plot the effect of the two possible orders of composition
+trplot2(TR @ TX, frame="RX", color="g")
+trplot2(TX @ TR, frame="XR", color="g")
+
+#  rotate a coordinate frame about some arbitrary point C
+c = np.array([3,2])
+plot_point(c, "ko", text="c")
+
+# #  then compute a transform to rotate about point 
+TC = transl2(c) @TR @ transl2(-c)
+print(f"TC = {TC}")
+
+# # then we apply it to frame X 
+trplot2(TC @TX , frame="XC", color="r")
 plt.show()
-
-
-
-
-
-
-
-

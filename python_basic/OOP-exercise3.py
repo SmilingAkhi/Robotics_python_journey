@@ -34,6 +34,6 @@ print(The_great_gatsby)
 (The_great_gatsby.check_out())
 
 
-The_great_gatsby = Book("The Great Gatsby","F. Scott Fitzgerald", 2)
+The_great_gatsby = Book("The Great Gatsby","F. Scott Fitzgerald")
 print(The_great_gatsby)
 (The_great_gatsby.check_out())
