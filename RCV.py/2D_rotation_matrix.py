@@ -101,4 +101,16 @@ print(f"TC = {TC}")
 
 # # then we apply it to frame X 
 trplot2(TC @TX , frame="XC", color="r")
-plt.show()
+
+# Matrix exponential for pose
+L = linalg.logm(TC)
+print(L) #creates an argumented skew symmetric matrix 
+M = vexa(L) #convert skew symetric vector to matrix 
+print(M)
+p = linalg.expm(L)
+print(p)
+
+# 2D twist
+S = Twist2.UnitRevolute(c)
+print(S)
+# plt.show()
